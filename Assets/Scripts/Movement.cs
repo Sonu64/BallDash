@@ -39,9 +39,6 @@ public class Movement : MonoBehaviour
 
 
     private void FixedUpdate() {
-
-        rb.freezeRotation = true;
-
         float movementValue = move.ReadValue<float>();
         if (movementValue == -1) {
             // Left movement
