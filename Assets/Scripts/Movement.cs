@@ -23,6 +23,7 @@ public class Movement : MonoBehaviour
     }
 
 
+    // Allowing the player to jump only if it is on Ground
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Ground") {
             isGrounded = true;
@@ -43,25 +44,25 @@ public class Movement : MonoBehaviour
 
         float movementValue = move.ReadValue<float>();
         if (movementValue == -1) {
-            MoveLeft(-1);
+            // Left movement
+            Move(-1);
         }
         else if (movementValue == 1) {
-            MoveRight(1);
+            // Right movement
+            Move(1);
         }
-        if (jump.IsPressed() && isGrounded)
+        if (jump.IsPressed() && isGrounded) {
+            // Jumping
             Jump();
+        }
     }
 
-    private void MoveRight(float direction) { // direction = 1
+    private void Move(float direction) { // direction = 1
         Debug.Log("Right movement !");
-        //rb.linearVelocity = new Vector3(direction * movementSpeed, rb.linearVelocity.y, 0);
-        rb.AddForce(Vector3.right * movementSpeed * direction);
-    }
-
-    private void MoveLeft(float direction) { // direction = -1
-        Debug.Log("Left movement !");
-        //rb.linearVelocity = new Vector3(direction * movementSpeed, rb.linearVelocity.y, 0);
-        rb.AddForce(Vector3.right * movementSpeed * direction);
+        if (direction == 1)
+            rb.AddForce(Vector3.right * movementSpeed, ForceMode.Force);
+        else if (direction == -1)
+            rb.AddForce(Vector3.left * movementSpeed, ForceMode.Force);
     }
 
     private void Jump() {
