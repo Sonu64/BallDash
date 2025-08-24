@@ -38,6 +38,9 @@ public class Movement : MonoBehaviour
 
 
     private void FixedUpdate() {
+
+        rb.freezeRotation = true;
+
         float movementValue = move.ReadValue<float>();
         if (movementValue == -1) {
             MoveLeft(-1);
@@ -51,12 +54,14 @@ public class Movement : MonoBehaviour
 
     private void MoveRight(float direction) { // direction = 1
         Debug.Log("Right movement !");
-        rb.linearVelocity = new Vector3(direction * movementSpeed, rb.linearVelocity.y, 0);
+        //rb.linearVelocity = new Vector3(direction * movementSpeed, rb.linearVelocity.y, 0);
+        rb.AddForce(Vector3.right * movementSpeed * direction);
     }
 
     private void MoveLeft(float direction) { // direction = -1
         Debug.Log("Left movement !");
-        rb.linearVelocity = new Vector3(direction * movementSpeed, rb.linearVelocity.y, 0);
+        //rb.linearVelocity = new Vector3(direction * movementSpeed, rb.linearVelocity.y, 0);
+        rb.AddForce(Vector3.right * movementSpeed * direction);
     }
 
     private void Jump() {
